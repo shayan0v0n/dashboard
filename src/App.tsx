@@ -1,26 +1,21 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { Route, Routes } from "react-router-dom"
+import Templates from "./HOC/Templates"
+import PasswordSaver from "./Containers/PasswordSaver"
+import { Todos } from "./Containers/Todos"
+import UrlControl from "./Containers/UrlControl"
+import Wallet from "./Containers/Wallet"
 
-function App() {
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <Templates>
+      <Routes>
+        <Route path="/" element={<Todos />} />
+        <Route path="/walletControl" element={<Wallet />} />
+        <Route path="/urlSaver" element={<UrlControl />} />
+        <Route path="/passwordSaver" element={<PasswordSaver />} />
+      </Routes>
+    </Templates>
+  )
 }
 
-export default App;
+export default App
