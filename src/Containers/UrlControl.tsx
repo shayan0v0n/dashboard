@@ -1,8 +1,10 @@
-import React from 'react'
+import { Typography } from '@mui/material'
 
 const UrlControl = () => {
   return (
-    <div>UrlControl</div>
+    <div>
+      <Typography variant='h3' align='center' marginTop="5rem">Url Saver, Comming Soon🐺⚒️</Typography>
+    </div>
   )
 }
 

@@ -1,8 +1,8 @@
-import React from 'react'
+import { Typography } from '@mui/material'
 
 const Wallet = () => {
   return (
-    <div>Wallet</div>
+    <Typography variant='h3' align='center' marginTop="5rem">Wallet Control, Comming Soon🐸⚒️</Typography>
   )
 }
 

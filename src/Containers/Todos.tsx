@@ -13,6 +13,12 @@ export const Todos = () => {
 
   const setAddTodoHandler = (todo: string): void => {
     if (todo.trim().length == 0) return
+    const allTodos = currentActiveList.concat(currentDoneList)
+    const findedTodo = allTodos.findIndex((item: string) => {
+      return item == todo
+    })
+    if (findedTodo !== -1) return
+
     const updateStorage: any[] = {
       ...currentStorageJSON,
       todos: {
