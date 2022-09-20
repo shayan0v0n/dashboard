@@ -23,6 +23,18 @@ import LockIcon from '@mui/icons-material/Lock';
 import { format } from 'date-fns';
 import { Link } from 'react-router-dom';
 
+const dashboardDefault: {
+  todos: {
+    activeList: string[],
+    doneList: string[]
+  }
+} = {
+  todos: {
+    activeList: [],
+    doneList: []
+  }
+}
+
 const drawerWidth = 240;
 interface TemplateProps {children?: JSX.Element}
 interface AppBarProps extends MuiAppBarProps {open?: boolean}
@@ -107,6 +119,9 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 );
 
 const Templates = (props: TemplateProps): JSX.Element => {
+    if (!localStorage.getItem('dashboard')) {
+      localStorage.setItem('dashboard', JSON.stringify(dashboardDefault))
+    } 
     const [open, setOpen] = useState(true);
     const handleDrawerOpen = () => {setOpen(true);};
     const handleDrawerClose = () => {setOpen(false);};
