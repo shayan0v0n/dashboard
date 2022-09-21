@@ -25,14 +25,16 @@ import { Link } from 'react-router-dom';
 
 const dashboardDefault: {
   todos: {
-    activeList: string[],
+    activeList: string[]
     doneList: string[]
   }
+  urls: any[]
 } = {
   todos: {
     activeList: [],
     doneList: []
-  }
+  },
+  urls: []
 }
 
 const drawerWidth = 240;
