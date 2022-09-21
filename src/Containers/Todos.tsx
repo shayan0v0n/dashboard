@@ -3,6 +3,7 @@ import { Container } from '@mui/system'
 import { useState } from 'react'
 import ActiveListCard from '../Components/ActiveListCard';
 import DoneListCard from '../Components/DoneListCard';
+import uuid from 'react-uuid';
 
 export const Todos = () => {
   const [ addTodo, setAddTodo ] = useState('');
@@ -18,23 +19,27 @@ export const Todos = () => {
       return item == todo
     })
     if (findedTodo !== -1) return
+    const createTodoStructure = {
+      name: todo,
+      id: uuid()
+    }
 
     const updateStorage: any[] = {
       ...currentStorageJSON,
       todos: {
         ...currentStorageJSON.todos,
-        activeList: [...currentStorageJSON.todos.activeList, todo]
+        activeList: [...currentStorageJSON.todos.activeList, createTodoStructure]
       }
     }
-    setCurrentActiveList([...currentStorageJSON.todos.activeList, todo])
+    setCurrentActiveList([...currentStorageJSON.todos.activeList, createTodoStructure])
     localStorage.setItem('dashboard', JSON.stringify(updateStorage));
 
     setAddTodo('')
   }
 
-  const deleteActiveListTodoHandler = (todo: string) => {
-    const filteredActiveList = currentActiveList.filter((item: string) => {
-      return item !== todo
+  const deleteActiveListTodoHandler = (todo: any) => {
+    const filteredActiveList = currentActiveList.filter((item: any) => {
+      return item.id !== todo.id
     })
 
     const updateStorage: any[] = {
@@ -49,9 +54,9 @@ export const Todos = () => {
     localStorage.setItem('dashboard', JSON.stringify(updateStorage));
   }
 
-  const AddActiveListTodoHandler = (todo: string) => {
-    const filteredActiveList = currentActiveList.filter((item: string) => {
-      return item !== todo
+  const AddActiveListTodoHandler = (todo: any) => {
+    const filteredActiveList = currentActiveList.filter((item: any) => {
+      return item.id !== todo.id
     })
 
     const updateStorage: any[] = {
@@ -67,9 +72,9 @@ export const Todos = () => {
     localStorage.setItem('dashboard', JSON.stringify(updateStorage));
   }
   
-  const returnDoneListHandler = (todo: string) => {
-    const filteredDoneList = currentDoneList.filter((item: string) => {
-      return item !== todo
+  const returnDoneListHandler = (todo: any) => {
+    const filteredDoneList = currentDoneList.filter((item: any) => {
+      return item.id !== todo.id
     })
   
     const updateStorage: any[] = {
@@ -85,9 +90,9 @@ export const Todos = () => {
     localStorage.setItem('dashboard', JSON.stringify(updateStorage));
   }
 
-  const deleteDoneListHandler = (todo: string) => {
-    const filteredDoneList = currentDoneList.filter((item: string) => {
-      return item !== todo
+  const deleteDoneListHandler = (todo: any) => {
+    const filteredDoneList = currentDoneList.filter((item: any) => {
+      return item.id !== todo.id
     })
 
     const updateStorage: any[] = {
@@ -108,9 +113,9 @@ export const Todos = () => {
       <Grid container gap={2} justifyContent="center">
         <Grid item xs={12} md={5} margin="1rem" textAlign="center">
           <h2>َActive List🐷🍫</h2>
-          { currentActiveList.map((todo: string, index: number) => (
-            <ActiveListCard key={index} currentTodo={todo} deleteActiveListTodo={deleteActiveListTodoHandler} AddActiveListTodo={AddActiveListTodoHandler}>
-              <>{todo}</>
+          { currentActiveList.map((todo: any) => (
+            <ActiveListCard key={todo.id} currentTodo={todo} deleteActiveListTodo={deleteActiveListTodoHandler} AddActiveListTodo={AddActiveListTodoHandler}>
+              <>{todo.name}</>
             </ActiveListCard>
           )) }
           <Grid container gap={1}>
@@ -124,9 +129,9 @@ export const Todos = () => {
         </Grid>
         <Grid item xs={12} md={5} margin="1rem" textAlign="center">
           <h2>Done List🐨🍭</h2>
-          { currentDoneList.map((todo: any, index: number) => (
-              <DoneListCard key={index} currentTodo={todo} returnDoneList={returnDoneListHandler} deleteDoneList={deleteDoneListHandler}>
-                {todo}
+          { currentDoneList.map((todo: any) => (
+              <DoneListCard key={todo.id} currentTodo={todo} returnDoneList={returnDoneListHandler} deleteDoneList={deleteDoneListHandler}>
+                {todo.name}
               </DoneListCard>
           )) }
         </Grid>

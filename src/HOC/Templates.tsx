@@ -25,8 +25,8 @@ import { Link } from 'react-router-dom';
 
 const dashboardDefault: {
   todos: {
-    activeList: string[]
-    doneList: string[]
+    activeList: any[]
+    doneList: any[]
   }
   urls: any[]
 } = {
