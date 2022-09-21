@@ -3,17 +3,16 @@ import { Alert, Box, Button, Card, Chip, Grid, Menu, MenuItem, Snackbar, TextFie
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import CopyAllIcon from '@mui/icons-material/CopyAll';
 interface urlCardProps {
-    address?: any
-    name?: any
+    currentUrl?: any
     deleteUrl?: any
     editUrl?: any
 }
 
 
 const UrlCard = (props: urlCardProps) => {
-    const {address, name, deleteUrl, editUrl} = props
-    const [currentName, setCurrentName] = useState(name)
-    const [currentAddress, setCurrentAddress] = useState(address)
+    const {currentUrl, deleteUrl, editUrl} = props
+    const [currentName, setCurrentName] = useState(currentUrl.name)
+    const [currentAddress, setCurrentAddress] = useState(currentUrl.address)
     const [editMode, setEditMode] = useState(false)
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
     const [open, setOpen] = React.useState(false);
@@ -38,7 +37,7 @@ const UrlCard = (props: urlCardProps) => {
     const copyToClipboardHandler = () => {navigator.clipboard.writeText(textToCopy); setOpen(true);}
     const editHandler = () => {
         if (currentName.trim().length === 0 || currentAddress.trim().length === 0) return
-        editUrl(currentName, currentAddress);
+        editUrl(currentUrl, currentName, currentAddress);
         setEditMode(false)
     }
 
@@ -67,7 +66,7 @@ const UrlCard = (props: urlCardProps) => {
           >
           <MenuItem onClick={() => {menuHandleClose(); copyToClipboardHandler()}}>Copy</MenuItem>
           <MenuItem onClick={() => {menuHandleClose(); setEditMode(true)}}>Edit</MenuItem>
-          <MenuItem onClick={() => {menuHandleClose(); deleteUrl(textToCopy)}}>Delete</MenuItem>
+          <MenuItem onClick={() => {menuHandleClose(); deleteUrl(currentUrl.id)}}>Delete</MenuItem>
         </Menu>
           <Chip label="Copy" sx={{ cursor: 'pointer' }} icon={<CopyAllIcon />} 
               onClick={() => copyToClipboardHandler()}/>
