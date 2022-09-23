@@ -1,45 +1,36 @@
-import { Button, Grid, TextField } from '@mui/material'
+import { Grid } from '@mui/material'
 import { Container } from '@mui/system'
 import { useState } from 'react'
 import ActiveListCard from '../Components/ActiveListCard';
+import AddTodoForm from '../Components/AddTodoForm';
 import DoneListCard from '../Components/DoneListCard';
-import uuid from 'react-uuid';
 
 export const Todos = () => {
-  const [ addTodo, setAddTodo ] = useState('');
   const currentStorage: any = localStorage.getItem("dashboard")
   const currentStorageJSON = JSON.parse(currentStorage);
   const [currentActiveList, setCurrentActiveList]: any[] = useState(currentStorageJSON.todos.activeList)
   const [currentDoneList, setCurrentDoneList]: any[] = useState(currentStorageJSON.todos.doneList)
 
-  const setAddTodoHandler = (todo: string): void => {
-    if (todo.trim().length == 0) return
+  const setAddTodoHandler = (currentTodo: string): void => {
+    if (currentTodo.trim().length === 0) return
     const allTodos = currentActiveList.concat(currentDoneList)
-    const findedTodo = allTodos.findIndex((item: string) => {
-      return item == todo
-    })
-    if (findedTodo !== -1) return
-    const createTodoStructure = {
-      name: todo,
-      id: uuid()
-    }
+    const sameTodoExist = allTodos.findIndex((todo: string) => todo === currentTodo)
+    if (sameTodoExist !== -1) return
 
     const updateStorage: any[] = {
       ...currentStorageJSON,
       todos: {
         ...currentStorageJSON.todos,
-        activeList: [...currentStorageJSON.todos.activeList, createTodoStructure]
+        activeList: [...currentStorageJSON.todos.activeList, currentTodo]
       }
     }
-    setCurrentActiveList([...currentStorageJSON.todos.activeList, createTodoStructure])
+    setCurrentActiveList([...currentStorageJSON.todos.activeList, currentTodo])
     localStorage.setItem('dashboard', JSON.stringify(updateStorage));
-
-    setAddTodo('')
   }
 
-  const deleteActiveListTodoHandler = (todo: any) => {
-    const filteredActiveList = currentActiveList.filter((item: any) => {
-      return item.id !== todo.id
+  const deleteActiveListTodoHandler = (currentTodo: string) => {
+    const filteredActiveList = currentActiveList.filter((todo: string) => {
+      return todo !== currentTodo
     })
 
     const updateStorage: any[] = {
@@ -54,46 +45,40 @@ export const Todos = () => {
     localStorage.setItem('dashboard', JSON.stringify(updateStorage));
   }
 
-  const AddActiveListTodoHandler = (todo: any) => {
-    const filteredActiveList = currentActiveList.filter((item: any) => {
-      return item.id !== todo.id
-    })
+  const AddActiveListTodoHandler = (currentTodo: string) => {
+    const filteredActiveList = currentActiveList.filter((todo: string) => todo !== currentTodo)
 
     const updateStorage: any[] = {
       ...currentStorageJSON,
       todos: {
         activeList: filteredActiveList,
-        doneList: [...currentStorageJSON.todos.doneList, todo]
+        doneList: [...currentStorageJSON.todos.doneList, currentTodo]
       }
     }
 
     setCurrentActiveList(filteredActiveList)
-    setCurrentDoneList([...currentStorageJSON.todos.doneList, todo])
+    setCurrentDoneList([...currentStorageJSON.todos.doneList, currentTodo])
     localStorage.setItem('dashboard', JSON.stringify(updateStorage));
   }
   
-  const returnDoneListHandler = (todo: any) => {
-    const filteredDoneList = currentDoneList.filter((item: any) => {
-      return item.id !== todo.id
-    })
+  const returnDoneListHandler = (currentTodo: string) => {
+    const filteredDoneList = currentDoneList.filter((todo: string) => todo !== currentTodo)
   
     const updateStorage: any[] = {
       ...currentStorageJSON,
       todos: {
         doneList: filteredDoneList,
-        activeList: [...currentStorageJSON.todos.activeList, todo]
+        activeList: [...currentStorageJSON.todos.activeList, currentTodo]
       }
     }
   
-    setCurrentActiveList([...currentStorageJSON.todos.activeList, todo])
+    setCurrentActiveList([...currentStorageJSON.todos.activeList, currentTodo])
     setCurrentDoneList(filteredDoneList)
     localStorage.setItem('dashboard', JSON.stringify(updateStorage));
   }
 
-  const deleteDoneListHandler = (todo: any) => {
-    const filteredDoneList = currentDoneList.filter((item: any) => {
-      return item.id !== todo.id
-    })
+  const deleteDoneListHandler = (currentTodo: string) => {
+    const filteredDoneList = currentDoneList.filter((todo: string) => todo !== currentTodo)
 
     const updateStorage: any[] = {
       ...currentStorageJSON,
@@ -108,35 +93,31 @@ export const Todos = () => {
   }
 
   return (
-    <main>
-        <Container>
-      <Grid container gap={2} justifyContent="center">
-        <Grid item xs={12} md={5} margin="1rem" textAlign="center">
-          <h2>َActive List🐷🍫</h2>
-          { currentActiveList.map((todo: any) => (
-            <ActiveListCard key={todo.id} currentTodo={todo} deleteActiveListTodo={deleteActiveListTodoHandler} AddActiveListTodo={AddActiveListTodoHandler}>
-              <>{todo.name}</>
-            </ActiveListCard>
-          )) }
-          <Grid container gap={1}>
-            <Grid item xs={8}>
-              <TextField id="filled-basic" label="Add Todo" variant="outlined" value={addTodo} onChange={(e) => setAddTodo(e.target.value)} fullWidth/>
-            </Grid>
-            <Grid item xs={3}>
-              <Button variant='contained' color='primary' fullWidth sx={{ height: '100%' }} onClick={() => setAddTodoHandler(addTodo)}>Submit</Button>
-            </Grid>
+      <Container>
+        <Grid container gap={2} justifyContent="center">
+          <Grid item xs={12} md={5} margin="1rem" textAlign="center">
+            <h2>َActive List🐷🍫</h2>
+            { currentActiveList.map((todo: string, index: number) => (
+              <ActiveListCard 
+              key={index} 
+              currentTodo={todo} 
+              deleteActiveListTodo={deleteActiveListTodoHandler} 
+              AddActiveListTodo={AddActiveListTodoHandler} />
+            )) }
+            <AddTodoForm setAddTodoFunc={setAddTodoHandler} />
+          </Grid>
+
+          <Grid item xs={12} md={5} margin="1rem" textAlign="center">
+            <h2>Done List🐨🍭</h2>
+            { currentDoneList.map((todo: any, index: number) => (
+                <DoneListCard 
+                key={index} 
+                currentTodo={todo} 
+                returnDoneList={returnDoneListHandler} 
+                deleteDoneList={deleteDoneListHandler} />
+            )) }
           </Grid>
         </Grid>
-        <Grid item xs={12} md={5} margin="1rem" textAlign="center">
-          <h2>Done List🐨🍭</h2>
-          { currentDoneList.map((todo: any) => (
-              <DoneListCard key={todo.id} currentTodo={todo} returnDoneList={returnDoneListHandler} deleteDoneList={deleteDoneListHandler}>
-                {todo.name}
-              </DoneListCard>
-          )) }
-        </Grid>
-      </Grid>
-        </Container>
-    </main>
+      </Container>
   )
 }
