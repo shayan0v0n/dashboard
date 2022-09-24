@@ -72,37 +72,6 @@ const UrlCard = (props: urlCardProps) => {
     ) : (
         <Card sx={{ padding: '1rem', margin: '1rem', display: 'flex' }}>
             <FormUrlControl formUrl={editHandler} buttonTitle="EDIT URL" currentAddress={currentAddress} currentName={currentName} />
-            {/* <Grid container gap={1} justifyContent="space-around">
-                <Grid item xs={9}>
-                <Box>
-                    <TextField
-                        onChange={(e) => setCurrentName(e.target.value)}
-                        id="outlined-basic" 
-                        value={currentName}
-                        label="URL Name"
-                        variant="outlined" 
-                        fullWidth 
-                        sx={{ margin: '.2rem 0' }} />
-                    <TextField 
-                        onChange={(e) => setCurrentAddress(e.target.value)}
-                        id="outlined-basic" 
-                        value={currentAddress}
-                        label="URL Address"
-                        variant="outlined" 
-                        fullWidth 
-                        sx={{ margin: '.2rem 0' }} />
-                </Box>
-                </Grid>
-                <Grid item xs={2}>
-                    <Button
-                    onClick={() => editHandler()}
-                    fullWidth 
-                    variant='contained' 
-                    color='primary'
-                    sx={{ margin: '.2rem 0', height: '95%' }} 
-                    >Edit URL</Button>
-                </Grid>
-            </Grid> */}
         </Card>
     )}
     </>
