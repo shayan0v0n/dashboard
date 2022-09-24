@@ -1,9 +1,9 @@
 import { Grid } from '@mui/material'
 import { Container } from '@mui/system'
 import { useState } from 'react'
-import ActiveListCard from '../Components/ActiveListCard';
-import AddTodoForm from '../Components/AddTodoForm';
-import DoneListCard from '../Components/DoneListCard';
+import ActiveListCard from '../Components/Todos/ActiveListCard';
+import AddTodoForm from '../Components/Todos/AddTodoForm';
+import DoneListCard from '../Components/Todos/DoneListCard';
 
 export const Todos = () => {
   const currentStorage: any = localStorage.getItem("dashboard")

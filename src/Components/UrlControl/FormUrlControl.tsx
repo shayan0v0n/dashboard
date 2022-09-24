@@ -2,15 +2,18 @@ import { Box, Button, Grid, TextField, Tooltip } from '@mui/material'
 import { useEffect, useState } from 'react'
 
 interface FormUrlControlProps {
-    formUrl?: any
+    formUrl: Function
+    buttonTitle: string
+    currentAddress?: string
+    currentName?: string
 }
 
 const FormUrlControl = (props: FormUrlControlProps) => {
     const currentStorage: any = localStorage.getItem("dashboard")
     const currentStorageJSON = JSON.parse(currentStorage);
-    const {formUrl} = props
-    const [ urlName, setUrlName ] = useState('');
-    const [ urlAddress, setUrlAddress ] = useState('');
+    const {formUrl, buttonTitle, currentAddress, currentName} = props
+    const [ urlName, setUrlName ] = useState(currentName ? currentName : '');
+    const [ urlAddress, setUrlAddress ] = useState(currentAddress ? currentAddress : '');
     const [formValidate, setFormValidate] = useState(false)
     useEffect(() => {
         checkFormValidate()
@@ -19,12 +22,15 @@ const FormUrlControl = (props: FormUrlControlProps) => {
     const checkFormValidate = () => {
         if (urlName.trim().length !== 0 && urlAddress.trim().length !== 0) setFormValidate(true)
         else setFormValidate(false)
+        if (urlName !== undefined && urlAddress !== undefined) {
+            if (urlName.trim() == currentName && urlAddress.trim() == currentAddress) setFormValidate(false)
+        }
     }
 
     const formControlhandler = () => {
         const findedIndexAddress = currentStorageJSON.urls.findIndex((item: any) =>item.address == urlAddress)
         const findedIndexName = currentStorageJSON.urls.findIndex((item: any) =>item.name == urlName)
-        if (findedIndexAddress !== -1 || findedIndexName !== -1) return
+        if (findedIndexAddress !== -1 && findedIndexName !== -1) return
         
         formUrl(urlName, urlAddress)
         setUrlName('')
@@ -60,11 +66,11 @@ const FormUrlControl = (props: FormUrlControlProps) => {
             variant='contained' 
             color='primary'
             sx={{ margin: '.2rem 0', height: '95%' }} 
-            onClick={() => {formControlhandler()}}>Add URL</Button>
+            onClick={() => {formControlhandler()}}>{buttonTitle}</Button>
             ) : (
             <Tooltip title="Your Forms Is Invalid">
                 <span>
-                    <Button fullWidth variant='contained' sx={{ margin: '.2rem 0', height: '95%' }} disabled>Add URL</Button>
+                    <Button fullWidth variant='contained' sx={{ margin: '.2rem 0', height: '95%' }} disabled>{buttonTitle}</Button>
                 </span>
             </Tooltip>
         )}
