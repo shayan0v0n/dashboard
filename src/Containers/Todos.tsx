@@ -100,6 +100,38 @@ export const Todos = () => {
     localStorage.setItem('dashboard', JSON.stringify(updateStorage));
   }
 
+  const activeListEditHandler = (currentTodo: todoStructureProps, newTodo: string) => {
+    let currentStorage: any[] = [...currentActiveList];
+    const indexUrl = currentStorage.findIndex((todo: todoStructureProps) => todo.id == currentTodo.id)
+    currentStorage[indexUrl] = { name: newTodo, id: currentStorage[indexUrl].id }
+    const uppdatedStorage: any = {
+      ...currentStorageJSON,
+      todos: {
+        ...currentStorageJSON.todos,
+        activeList: currentStorage
+      }
+    }
+
+      setCurrentActiveList(currentStorage)
+      localStorage.setItem('dashboard', JSON.stringify(uppdatedStorage))
+  }
+
+  const doneListEditHandler = (currentTodo: todoStructureProps, newTodo: string) => {
+    let currentStorage: any[] = [...currentDoneList];
+    const indexUrl = currentStorage.findIndex((todo: todoStructureProps) => todo.id == currentTodo.id)
+    currentStorage[indexUrl] = { name: newTodo, id: currentStorage[indexUrl].id }
+    const uppdatedStorage: any = {
+      ...currentStorageJSON,
+      todos: {
+        ...currentStorageJSON.todos,
+        doneList: currentStorage
+      }
+    }
+
+      setCurrentDoneList(currentStorage)
+      localStorage.setItem('dashboard', JSON.stringify(uppdatedStorage))
+  }
+
   return (
       <Container>
         <Grid container gap={2} justifyContent="center">
@@ -109,10 +141,13 @@ export const Todos = () => {
               <ActiveListCard 
               key={todo.id} 
               currentTodo={todo} 
+              activeListEdit={activeListEditHandler}
               deleteActiveListTodo={deleteActiveListTodoHandler} 
               AddActiveListTodo={AddActiveListTodoHandler} />
             )) }
-            <AddTodoForm setAddTodoFunc={setAddTodoHandler} />
+            <AddTodoForm
+             formSubmit={setAddTodoHandler}
+             placeholderName="Add Todo" />
           </Grid>
 
           <Grid item xs={12} md={5} margin="1rem" textAlign="center">
@@ -120,7 +155,8 @@ export const Todos = () => {
             { currentDoneList.map((todo: todoStructureProps) => (
                 <DoneListCard 
                 key={todo.id} 
-                currentTodo={todo} 
+                currentTodo={todo}
+                doneListEdit={doneListEditHandler}
                 returnDoneList={returnDoneListHandler} 
                 deleteDoneList={deleteDoneListHandler} />
             )) }
