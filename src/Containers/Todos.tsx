@@ -1,9 +1,12 @@
 import { Grid } from '@mui/material'
 import { Container } from '@mui/system'
 import { useState } from 'react'
+import uuid from 'react-uuid';
 import ActiveListCard from '../Components/Todos/ActiveListCard';
 import AddTodoForm from '../Components/Todos/AddTodoForm';
 import DoneListCard from '../Components/Todos/DoneListCard';
+type todoStructureProps = { name: string, id: string };
+
 
 export const Todos = () => {
   const currentStorage: any = localStorage.getItem("dashboard")
@@ -14,23 +17,28 @@ export const Todos = () => {
   const setAddTodoHandler = (currentTodo: string): void => {
     if (currentTodo.trim().length === 0) return
     const allTodos = currentActiveList.concat(currentDoneList)
-    const sameTodoExist = allTodos.findIndex((todo: string) => todo === currentTodo)
+    const sameTodoExist = allTodos.findIndex((todo: todoStructureProps) => todo.name === currentTodo)
     if (sameTodoExist !== -1) return
+
+    const todoStructure: todoStructureProps = {
+      id: uuid(),
+      name: currentTodo
+    }
 
     const updateStorage: any[] = {
       ...currentStorageJSON,
       todos: {
         ...currentStorageJSON.todos,
-        activeList: [...currentStorageJSON.todos.activeList, currentTodo]
+        activeList: [...currentStorageJSON.todos.activeList, todoStructure]
       }
     }
-    setCurrentActiveList([...currentStorageJSON.todos.activeList, currentTodo])
+    setCurrentActiveList([...currentStorageJSON.todos.activeList, todoStructure])
     localStorage.setItem('dashboard', JSON.stringify(updateStorage));
   }
 
-  const deleteActiveListTodoHandler = (currentTodo: string) => {
-    const filteredActiveList = currentActiveList.filter((todo: string) => {
-      return todo !== currentTodo
+  const deleteActiveListTodoHandler = (currentTodo: todoStructureProps): void => {
+    const filteredActiveList = currentActiveList.filter((todo: todoStructureProps) => {
+      return todo.id !== currentTodo.id
     })
 
     const updateStorage: any[] = {
@@ -45,8 +53,8 @@ export const Todos = () => {
     localStorage.setItem('dashboard', JSON.stringify(updateStorage));
   }
 
-  const AddActiveListTodoHandler = (currentTodo: string) => {
-    const filteredActiveList = currentActiveList.filter((todo: string) => todo !== currentTodo)
+  const AddActiveListTodoHandler = (currentTodo: todoStructureProps) => {
+    const filteredActiveList = currentActiveList.filter((todo: todoStructureProps) => todo.id !== currentTodo.id)
 
     const updateStorage: any[] = {
       ...currentStorageJSON,
@@ -61,8 +69,8 @@ export const Todos = () => {
     localStorage.setItem('dashboard', JSON.stringify(updateStorage));
   }
   
-  const returnDoneListHandler = (currentTodo: string) => {
-    const filteredDoneList = currentDoneList.filter((todo: string) => todo !== currentTodo)
+  const returnDoneListHandler = (currentTodo: todoStructureProps) => {
+    const filteredDoneList = currentDoneList.filter((todo: todoStructureProps) => todo.id !== currentTodo.id)
   
     const updateStorage: any[] = {
       ...currentStorageJSON,
@@ -77,8 +85,8 @@ export const Todos = () => {
     localStorage.setItem('dashboard', JSON.stringify(updateStorage));
   }
 
-  const deleteDoneListHandler = (currentTodo: string) => {
-    const filteredDoneList = currentDoneList.filter((todo: string) => todo !== currentTodo)
+  const deleteDoneListHandler = (currentTodo: todoStructureProps) => {
+    const filteredDoneList = currentDoneList.filter((todo: todoStructureProps) => todo.id !== currentTodo.id)
 
     const updateStorage: any[] = {
       ...currentStorageJSON,
@@ -97,9 +105,9 @@ export const Todos = () => {
         <Grid container gap={2} justifyContent="center">
           <Grid item xs={12} md={5} margin="1rem" textAlign="center">
             <h2>َActive List🐷🍫</h2>
-            { currentActiveList.map((todo: string, index: number) => (
+            { currentActiveList.map((todo: todoStructureProps) => (
               <ActiveListCard 
-              key={index} 
+              key={todo.id} 
               currentTodo={todo} 
               deleteActiveListTodo={deleteActiveListTodoHandler} 
               AddActiveListTodo={AddActiveListTodoHandler} />
@@ -109,9 +117,9 @@ export const Todos = () => {
 
           <Grid item xs={12} md={5} margin="1rem" textAlign="center">
             <h2>Done List🐨🍭</h2>
-            { currentDoneList.map((todo: any, index: number) => (
+            { currentDoneList.map((todo: todoStructureProps) => (
                 <DoneListCard 
-                key={index} 
+                key={todo.id} 
                 currentTodo={todo} 
                 returnDoneList={returnDoneListHandler} 
                 deleteDoneList={deleteDoneListHandler} />
