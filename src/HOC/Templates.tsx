@@ -29,12 +29,14 @@ const dashboardDefault: {
     doneList: any[]
   }
   urls: any[]
+  passwords: any[]
 } = {
   todos: {
     activeList: [],
     doneList: []
   },
-  urls: []
+  urls: [],
+  passwords: []
 }
 
 const drawerWidth = 240;
@@ -43,15 +45,15 @@ interface AppBarProps extends MuiAppBarProps {open?: boolean}
 const appBarNavigate = [{
     title: 'TodoList',
     path: '/'
-}, {
-    title: 'Wallet Control',
-    path: '/walletControl'
-}, {
+  }, {
     title: 'Url Saver',
     path: '/urlSaver'
-}, {
+  }, {
     title: 'Password Saver',
     path: '/passwordSaver'
+  }, {
+    title: 'Wallet Control',
+    path: '/walletControl'
 }]
 
 

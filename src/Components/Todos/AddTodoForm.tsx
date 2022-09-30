@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Button, Grid, TextField } from '@mui/material'
 interface addTodoFormProps {
     formSubmit: Function
@@ -8,9 +8,19 @@ interface addTodoFormProps {
 
 const AddTodoForm = (props: addTodoFormProps) => {
   const [ addTodo, setAddTodo ] = useState(props.currentName ? props.currentName : '');
+  const [formValidate, setFormValidate] = useState(false)
+
+  useEffect(() => {
+    checkFormValidate()
+  }, [addTodo])
   const formSubmitHandler = () => {
     props.formSubmit(addTodo);
     setAddTodo('')
+  }
+
+  const checkFormValidate = () => {
+    if (addTodo.trim().length !== 0) setFormValidate(true)
+    else setFormValidate(false)
   }
 
   return (
@@ -19,7 +29,11 @@ const AddTodoForm = (props: addTodoFormProps) => {
           <TextField id="filled-basic" label={props.placeholderName} variant="outlined" value={addTodo} onChange={(e) => setAddTodo(e.target.value)} fullWidth/>
         </Grid>
         <Grid item xs={3}>
-          <Button variant='contained' color='primary' fullWidth sx={{ height: '100%' }} onClick={formSubmitHandler}>Submit</Button>
+          { formValidate ? (
+            <Button variant='contained' color='primary' fullWidth sx={{ height: '100%' }} onClick={formSubmitHandler}>Submit</Button>
+            ) : (
+            <Button variant='contained' color='primary' fullWidth sx={{ height: '100%' }} disabled>Submit</Button>
+          ) }
         </Grid>
     </Grid>
   )
