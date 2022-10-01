@@ -47,8 +47,8 @@ const PasswordForm = (props: passowrdFormProps) => {
     }
 
   return (
-    <Grid container gap={1} justifyContent="space-around" sx={{ margin: "1rem 0" }}>
-    <Grid item xs={9}>
+    <Grid container gap={1} justifyContent="space-around">
+    <Grid item xs={12} md={9}>
       <Box>
         <TextField 
             onChange={e => setTitle(e.target.value)}
@@ -85,7 +85,7 @@ const PasswordForm = (props: passowrdFormProps) => {
         </FormControl>
       </Box>
     </Grid>
-    <Grid item xs={2}>
+    <Grid item xs={12} md={2}>
         { formValidate ? (
             <Button
                 fullWidth 

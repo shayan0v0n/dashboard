@@ -25,10 +25,10 @@ const AddTodoForm = (props: addTodoFormProps) => {
 
   return (
     <Grid container gap={1}>
-        <Grid item xs={8}>
+        <Grid item xs={12} md={8}>
           <TextField id="filled-basic" label={props.placeholderName} variant="outlined" value={addTodo} onChange={(e) => setAddTodo(e.target.value)} fullWidth/>
         </Grid>
-        <Grid item xs={3}>
+        <Grid item xs={12} md={3}>
           { formValidate ? (
             <Button variant='contained' color='primary' fullWidth sx={{ height: '100%' }} onClick={formSubmitHandler}>Submit</Button>
             ) : (

@@ -39,7 +39,7 @@ const FormUrlControl = (props: FormUrlControlProps) => {
 
   return (
     <Grid container gap={1} justifyContent="space-around">
-    <Grid item xs={9}>
+    <Grid item xs={12} md={9}>
       <Box>
         <TextField 
             onChange={(e) => setUrlName(e.target.value)}
@@ -59,7 +59,7 @@ const FormUrlControl = (props: FormUrlControlProps) => {
             sx={{ margin: '.2rem 0' }} />
       </Box>
     </Grid>
-    <Grid item xs={2}>
+    <Grid item xs={12} md={2}>
         {formValidate ? (
             <Button 
             fullWidth 

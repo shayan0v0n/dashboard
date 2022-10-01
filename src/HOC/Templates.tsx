@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { styled, useTheme, Theme, CSSObject } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import MuiDrawer from '@mui/material/Drawer';
@@ -126,7 +126,8 @@ const Templates = (props: TemplateProps): JSX.Element => {
     if (!localStorage.getItem('dashboard')) {
       localStorage.setItem('dashboard', JSON.stringify(dashboardDefault))
     } 
-    const [open, setOpen] = useState(true);
+
+    const [open, setOpen] = useState(window.innerWidth <= 600 ? false : true);
     const handleDrawerOpen = () => {setOpen(true);};
     const handleDrawerClose = () => {setOpen(false);};
     const [currentPath, setCurrentPath] = useState(window.location.pathname)
@@ -157,7 +158,7 @@ const Templates = (props: TemplateProps): JSX.Element => {
           <Typography variant="h6" noWrap component="div" sx={{flexGrow: 1}}>
             Dashboard
           </Typography>
-          <Typography variant="h6" noWrap component="div" sx={{ display: window.innerWidth < 400 ? 'none' : 'block' }}>
+          <Typography variant="h6" noWrap component="div" sx={{ display: window.innerWidth < 600 ? 'none' : 'block' }}>
             {format(new Date(), "do MMMM Y")}
           </Typography>
         </Toolbar>
@@ -172,7 +173,7 @@ const Templates = (props: TemplateProps): JSX.Element => {
         <List>
           {appBarNavigate.map((item, index) => (
             <Link to={`${item.path}`} style={{ textDecoration: 'none', color: 'inherit' }} key={index}>
-            <ListItem disablePadding sx={{ display: 'block' , background: currentPath == item.path ? '#eee' : null }} onClick={() => changeNavigate(item.path)}>
+            <ListItem disablePadding sx={{ display: 'block' , background: currentPath === item.path ? '#eee' : null }} onClick={() => changeNavigate(item.path)}>
               <ListItemButton
                 sx={{
                   minHeight: 48,
@@ -187,10 +188,10 @@ const Templates = (props: TemplateProps): JSX.Element => {
                     justifyContent: 'center',
                   }}
                 >
-                  {item.title == 'TodoList' ? <AssignmentIcon /> : null}
-                  {item.title == 'Wallet Control' ? <AccountBalanceWalletIcon /> : null}
-                  {item.title == 'Url Saver' ? <LinkIcon /> : null}
-                  {item.title == 'Password Saver' ? <LockIcon /> : null}
+                  {item.title === 'TodoList' ? <AssignmentIcon /> : null}
+                  {item.title === 'Wallet Control' ? <AccountBalanceWalletIcon /> : null}
+                  {item.title === 'Url Saver' ? <LinkIcon /> : null}
+                  {item.title === 'Password Saver' ? <LockIcon /> : null}
                 </ListItemIcon>
                     <ListItemText primary={item.title} sx={{ opacity: open ? 1 : 0 }} />
                 </ListItemButton>
