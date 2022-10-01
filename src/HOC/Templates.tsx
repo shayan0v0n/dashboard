@@ -22,8 +22,10 @@ import LinkIcon from '@mui/icons-material/Link';
 import LockIcon from '@mui/icons-material/Lock';
 import { format } from 'date-fns';
 import { Link } from 'react-router-dom';
+import RegisterPassword from '../Components/PasswordAuth/RegisterPassword';
 
 const dashboardDefault: {
+  passwordAuth: any
   todos: {
     activeList: any[]
     doneList: any[]
@@ -31,6 +33,7 @@ const dashboardDefault: {
   urls: any[]
   passwords: any[]
 } = {
+  passwordAuth: {},
   todos: {
     activeList: [],
     doneList: []
@@ -123,9 +126,13 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 );
 
 const Templates = (props: TemplateProps): JSX.Element => {
-    if (!localStorage.getItem('dashboard')) {
+  const currentLocalStorage: any = localStorage.getItem('dashboard') ? localStorage.getItem('dashboard') : null;
+  const currentLocalStorageJSON = JSON.parse(currentLocalStorage) ? JSON.parse(currentLocalStorage) : null
+  const registerModal = !currentLocalStorageJSON?.passwordAuth.email ? true : false
+    if (currentLocalStorage == null) {
       localStorage.setItem('dashboard', JSON.stringify(dashboardDefault))
-    } 
+    }
+
 
     const [open, setOpen] = useState(window.innerWidth <= 600 ? false : true);
     const handleDrawerOpen = () => {setOpen(true);};
@@ -140,6 +147,9 @@ const Templates = (props: TemplateProps): JSX.Element => {
 
   return (    
     <Box sx={{ display: 'flex' }}>
+      {registerModal ? (
+        <RegisterPassword />
+      ) : null}
       <CssBaseline />
       <AppBar position="fixed" open={open}>
         <Toolbar>
