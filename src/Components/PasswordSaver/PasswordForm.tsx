@@ -4,14 +4,16 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import { useEffect, useState } from 'react'
 import uuid from 'react-uuid'
 interface currentPassowrdsStructure {id: string, title: string, password: string}
-interface passowrdFormProps {passwordHandler: Function,
+interface passowrdFormProps {
+   passwordHandler: Function,
    buttonTitle: string
+   login?: boolean
    currentPassword?: currentPassowrdsStructure
    readonlyMode?: boolean
   }
 
 const PasswordForm = (props: passowrdFormProps) => {
-  const { passwordHandler, buttonTitle, currentPassword, readonlyMode } = props
+  const { passwordHandler, buttonTitle, currentPassword, readonlyMode, login } = props
     const [title, setTitle] = useState(currentPassword ? currentPassword.title : '')
     const [password, setPassword] = useState(currentPassword ? currentPassword.password : '')
     const [passwordStatus, setPasswordStatus] = useState(readonlyMode ? false : true)
@@ -25,7 +27,7 @@ const PasswordForm = (props: passowrdFormProps) => {
       if (title.trim().length !== 0 && password.trim().length !== 0) setFormValidate(true)
       else setFormValidate(false)
       if (currentPassword !== undefined) {
-        if (currentPassword.title.trim() == title && currentPassword.password.trim() == password) setFormValidate(false)
+        if (currentPassword.title.trim() === title && currentPassword.password.trim() === password) setFormValidate(false)
       }
       if (readonlyMode) setFormValidate(true)
     }
@@ -47,7 +49,7 @@ const PasswordForm = (props: passowrdFormProps) => {
     }
 
   return (
-    <Grid container gap={1} justifyContent="space-around">
+    <Grid container gap={1} justifyContent="space-around" sx={{ margin: '1rem' }}>
     <Grid item xs={12} md={9}>
       <Box>
         <TextField 
@@ -57,7 +59,7 @@ const PasswordForm = (props: passowrdFormProps) => {
             label="Title"
             variant="outlined"
             fullWidth 
-            disabled={readonlyMode ? true : false}
+            disabled={readonlyMode || !login ? true : false}
             sx={{ margin: '.2rem 0'}} />
 
         <FormControl sx={{ margin: '.2rem 0' }}  variant="outlined" fullWidth>
@@ -66,7 +68,7 @@ const PasswordForm = (props: passowrdFormProps) => {
               onChange={e => setPassword(e.target.value)}
               id="outlined-adornment-password"
               value={password}
-              disabled={readonlyMode ? true : false}
+              disabled={readonlyMode || !login ? true : false}
               sx={{ margin: '.2rem 0'}}
               type={passwordStatus ? 'password' : 'text'}
               endAdornment={
@@ -86,20 +88,13 @@ const PasswordForm = (props: passowrdFormProps) => {
       </Box>
     </Grid>
     <Grid item xs={12} md={2}>
-        { formValidate ? (
-            <Button
-                fullWidth 
-                variant='contained' 
-                color='primary'
-                sx={{ margin: '.2rem 0', height: '95%' }}
-                onClick={addPassowrdFormHandler} >{buttonTitle}</Button>
-        ) : (
-            <Button
-                fullWidth 
-                variant='contained' 
-                color='primary'
-                sx={{ margin: '.2rem 0', height: '95%' }} disabled>{buttonTitle}</Button>
-        ) }
+      <Button
+          fullWidth 
+          variant='contained' 
+          color='primary'
+          sx={{ margin: '.2rem 0', height: '95%' }}
+          disabled={formValidate && login ? false : true}
+          onClick={addPassowrdFormHandler} >{buttonTitle}</Button>
     </Grid>
     </Grid>
   )
