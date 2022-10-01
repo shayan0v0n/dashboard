@@ -59,7 +59,7 @@ const PasswordForm = (props: passowrdFormProps) => {
             label="Title"
             variant="outlined"
             fullWidth 
-            disabled={readonlyMode || !login ? true : false}
+            disabled={readonlyMode || login ? true : false}
             sx={{ margin: '.2rem 0'}} />
 
         <FormControl sx={{ margin: '.2rem 0' }}  variant="outlined" fullWidth>
@@ -68,7 +68,7 @@ const PasswordForm = (props: passowrdFormProps) => {
               onChange={e => setPassword(e.target.value)}
               id="outlined-adornment-password"
               value={password}
-              disabled={readonlyMode || !login ? true : false}
+              disabled={readonlyMode || login ? true : false}
               sx={{ margin: '.2rem 0'}}
               type={passwordStatus ? 'password' : 'text'}
               endAdornment={
@@ -93,7 +93,7 @@ const PasswordForm = (props: passowrdFormProps) => {
           variant='contained' 
           color='primary'
           sx={{ margin: '.2rem 0', height: '95%' }}
-          disabled={formValidate && login ? false : true}
+          disabled={formValidate && !login ? false : true}
           onClick={addPassowrdFormHandler} >{buttonTitle}</Button>
     </Grid>
     </Grid>

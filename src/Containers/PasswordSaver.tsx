@@ -10,7 +10,7 @@ const PasswordSaver = () => {
   const currentStorageJSON = JSON.parse(currentStorage);
   const [ currentPassowrds, setCurrentPasswords ] = useState(currentStorageJSON.passwords)
   const [loginModal, setLoginModal] = useState(true)
-  const [loginStatus, setLoginStatus] = useState(false)
+  const [loginStatus, setLoginStatus] = useState(true)
   
   const addPasswordHandler = (currentPass: currentPassowrdsStructure) => {
     const samePassExist = currentPassowrds.findIndex((password: currentPassowrdsStructure) => password.title === currentPass.title)
@@ -52,7 +52,7 @@ const PasswordSaver = () => {
 
   const setLoginHandler = () => {
     setLoginModal(false)
-    setLoginStatus(true)
+    setLoginStatus(false)
   }
 
   return (

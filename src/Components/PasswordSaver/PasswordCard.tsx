@@ -44,7 +44,7 @@ const PasswordCard = (props: passwordCardProps) => {
               aria-haspopup="true"
               aria-expanded={openMenu ? 'true' : undefined}
               onClick={menuHandleClick} ><MoreVertIcon /></Button>
-              {!login ? (
+              {login ? (
                   <Menu
                       id="basic-menu"
                       anchorEl={anchorEl}
@@ -75,7 +75,7 @@ const PasswordCard = (props: passwordCardProps) => {
                     <MenuItem onClick={() => {menuHandleClose(); deletePassword(currentPassword)}}>Delete</MenuItem>
                   </Menu>
               )}
-              {login ? (
+              {!login ? (
                 <Chip label="Unlocked" sx={{ cursor: 'default' }} icon={<LockOpenIcon />} />
                 ) : (
                 <Chip label="Locked" sx={{ cursor: 'default' }} icon={<LockIcon />} />
