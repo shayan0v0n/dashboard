@@ -2,7 +2,7 @@ import { Box, Container } from '@mui/material'
 import { useState } from 'react';
 import LoginPassword from '../Components/PasswordAuth/LoginPassword';
 import PasswordCard from '../Components/PasswordSaver/PasswordCard';
-import PasswordForm from '../Components/PasswordSaver/PasswordForm'
+import AddPasswordForm from '../Components/PasswordSaver/AddPasswordForm';
 interface currentPassowrdsStructure {id: string, title: string, password: string}
 
 const PasswordSaver = () => {
@@ -71,10 +71,9 @@ const PasswordSaver = () => {
           deletePassword={deletePasswordHandler} />
         )) }
       </Box>
-      <PasswordForm 
+      <AddPasswordForm 
        passwordHandler={addPasswordHandler} 
-       login={loginStatus}
-       buttonTitle="ADD PASSWORD" /> 
+       login={loginStatus} /> 
      </Box>
     </Container>
   )

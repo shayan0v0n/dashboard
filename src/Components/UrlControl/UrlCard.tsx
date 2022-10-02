@@ -1,8 +1,8 @@
 import React, {useState} from 'react'
-import { Alert, Box, Button, Card, Chip, Grid, Menu, MenuItem, Snackbar, TextField, Tooltip, Typography } from '@mui/material'
+import { Alert, Box, Button, Card, Chip, Menu, MenuItem, Snackbar, Tooltip, Typography } from '@mui/material'
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import CopyAllIcon from '@mui/icons-material/CopyAll';
-import FormUrlControl from './FormUrlControl';
+import EditUrlForm from './EditUrlForm';
 
 interface urlCardProps { currentUrl: urlData, deleteUrl: Function, editUrl: Function}
 interface urlData { name: string, address: string,id: string }
@@ -71,7 +71,10 @@ const UrlCard = (props: urlCardProps) => {
         </Card>
     ) : (
         <Card sx={{ padding: '1rem', margin: '1rem', display: 'flex' }}>
-            <FormUrlControl formUrl={editHandler} buttonTitle="EDIT URL" currentAddress={currentAddress} currentName={currentName} />
+            <EditUrlForm 
+             formUrl={editHandler}
+             currentAddress={currentAddress} 
+             currentName={currentName} />
         </Card>
     )}
     </>

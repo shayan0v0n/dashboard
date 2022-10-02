@@ -1,11 +1,10 @@
-import { Box, Button, Container, Card, TextField, Typography } from '@mui/material'
+import { Box, Container} from '@mui/material'
 import { useState } from 'react';
 import uuid from 'react-uuid';
-import FormUrlControl from '../Components/UrlControl/FormUrlControl'
+import AddUrlForm from '../Components/UrlControl/AddUrlForm'
 import UrlCard from '../Components/UrlControl/UrlCard';
 
 interface urlData {name: string, address: string, id: string}
-
 const UrlControl = () => {
   const currentStorage: any = localStorage.getItem("dashboard")
   const currentStorageJSON = JSON.parse(currentStorage);
@@ -65,7 +64,7 @@ const UrlControl = () => {
           <UrlCard key={url.id} currentUrl={url} deleteUrl={deleteUrlHandler} editUrl={editUrlHandler}/>
         ))}
       </Box>
-      <FormUrlControl formUrl={addUrlHandler} buttonTitle="ADD URL" />
+      <AddUrlForm formUrl={addUrlHandler} />
     </Container>
   )
 }

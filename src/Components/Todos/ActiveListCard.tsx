@@ -3,7 +3,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import EditIcon from '@mui/icons-material/Edit';
 import { useState } from "react";
-import AddTodoForm from "./AddTodoForm";
+import EditTodoForm from "./EditTodoForm";
 type todoStructureProps = { name: string, id: string };
 interface activeListProps {
   currentTodo: todoStructureProps,
@@ -39,10 +39,9 @@ const ActiveListCard = (props: activeListProps): JSX.Element => {
         </Box>
         </>        
       ) : (
-        <AddTodoForm 
+        <EditTodoForm 
          currentName={currentTodo.name}
-         formSubmit={activeListEditHandler}
-         placeholderName="Edit Todo" />
+         formSubmit={activeListEditHandler} />
       )}
     </Card>
   )

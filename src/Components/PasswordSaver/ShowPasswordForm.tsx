@@ -4,49 +4,16 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import { useEffect, useState } from 'react'
 import uuid from 'react-uuid'
 interface currentPassowrdsStructure {id: string, title: string, password: string}
-interface passowrdFormProps {
+interface ShowPasswordFormProps {
    passwordHandler: Function,
-   buttonTitle: string
-   login?: boolean
-   currentPassword?: currentPassowrdsStructure
-   readonlyMode?: boolean
+   currentPassword: currentPassowrdsStructure
   }
 
-const PasswordForm = (props: passowrdFormProps) => {
-  const { passwordHandler, buttonTitle, currentPassword, readonlyMode, login } = props
+const ShowPasswordForm = (props: ShowPasswordFormProps) => {
+  const { passwordHandler, currentPassword } = props
     const [title, setTitle] = useState(currentPassword ? currentPassword.title : '')
     const [password, setPassword] = useState(currentPassword ? currentPassword.password : '')
-    const [passwordStatus, setPasswordStatus] = useState(readonlyMode ? false : true)
-    const [formValidate, setFormValidate] = useState(false)
-
-    useEffect(() => {
-        checkPassowrdForm()
-    }, [title, password])
-
-    const checkPassowrdForm = () => {
-      if (title.trim().length !== 0 && password.trim().length !== 0) setFormValidate(true)
-      else setFormValidate(false)
-      if (currentPassword !== undefined) {
-        if (currentPassword.title.trim() === title && currentPassword.password.trim() === password) setFormValidate(false)
-      }
-      if (readonlyMode) setFormValidate(true)
-    }
-
-    const addPassowrdFormHandler = () => {
-      const addPasswordStructure: currentPassowrdsStructure = {id: uuid(), title: title, password: password}
-
-      if (readonlyMode) {
-        passwordHandler()
-      }else {
-        if (currentPassword !== undefined) {
-          passwordHandler(currentPassword, addPasswordStructure)
-        }else {
-          passwordHandler(addPasswordStructure)
-        }
-      }
-      setTitle('')
-      setPassword('')
-    }
+    const [passwordStatus, setPasswordStatus] = useState(false)
 
   return (
     <Grid container gap={1} justifyContent="space-around" sx={{ margin: '1rem' }}>
@@ -59,7 +26,7 @@ const PasswordForm = (props: passowrdFormProps) => {
             label="Title"
             variant="outlined"
             fullWidth 
-            disabled={readonlyMode || login ? true : false}
+            disabled
             sx={{ margin: '.2rem 0'}} />
 
         <FormControl sx={{ margin: '.2rem 0' }}  variant="outlined" fullWidth>
@@ -68,7 +35,7 @@ const PasswordForm = (props: passowrdFormProps) => {
               onChange={e => setPassword(e.target.value)}
               id="outlined-adornment-password"
               value={password}
-              disabled={readonlyMode || login ? true : false}
+              disabled
               sx={{ margin: '.2rem 0'}}
               type={passwordStatus ? 'password' : 'text'}
               endAdornment={
@@ -93,11 +60,10 @@ const PasswordForm = (props: passowrdFormProps) => {
           variant='contained' 
           color='primary'
           sx={{ margin: '.2rem 0', height: '95%' }}
-          disabled={formValidate && !login ? false : true}
-          onClick={addPassowrdFormHandler} >{buttonTitle}</Button>
+          onClick={() => passwordHandler(false)}>CLOSE</Button>
     </Grid>
     </Grid>
   )
 }
 
-export default PasswordForm
+export default ShowPasswordForm

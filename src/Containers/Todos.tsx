@@ -86,7 +86,7 @@ export const Todos = () => {
   }
 
   const deleteDoneListHandler = (currentTodo: todoStructureProps) => {
-    const filteredDoneList = currentDoneList.filter((todo: todoStructureProps) => todo.id !== currentTodo.id)
+    const filteredDoneList: any[] = currentDoneList.filter((todo: todoStructureProps) => todo.id !== currentTodo.id)
 
     const updateStorage: any[] = {
       ...currentStorageJSON,
@@ -146,8 +146,7 @@ export const Todos = () => {
               AddActiveListTodo={AddActiveListTodoHandler} />
             )) }
             <AddTodoForm
-             formSubmit={setAddTodoHandler}
-             placeholderName="Add Todo" />
+             formSubmit={setAddTodoHandler} />
           </Grid>
 
           <Grid item xs={12} md={5} margin="1rem" textAlign="center">

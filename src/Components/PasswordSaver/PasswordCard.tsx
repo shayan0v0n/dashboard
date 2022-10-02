@@ -7,7 +7,8 @@ import MenuItem from "@mui/material/MenuItem";
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import React, { useState } from "react";
 import LockOpenIcon from '@mui/icons-material/LockOpen';
-import PasswordForm from "./PasswordForm";
+import EditPasswordForm from "./EditPasswordForm";
+import ShowPasswordForm from "./ShowPasswordForm";
 
 interface currentPassowrdsStructure {id: string, title: string, password: string} 
 interface passwordCardProps {
@@ -44,7 +45,6 @@ const PasswordCard = (props: passwordCardProps) => {
               aria-haspopup="true"
               aria-expanded={openMenu ? 'true' : undefined}
               onClick={menuHandleClick} ><MoreVertIcon /></Button>
-              {login ? (
                   <Menu
                       id="basic-menu"
                       anchorEl={anchorEl}
@@ -53,50 +53,35 @@ const PasswordCard = (props: passwordCardProps) => {
                       onClose={menuHandleClose}
                       MenuListProps={{
                           'aria-labelledby': 'basic-button',
-                        }}
-                  >
-                    <MenuItem>Edit</MenuItem>
-                    <MenuItem>Show</MenuItem>
-                    <MenuItem>Delete</MenuItem>
+                        }}>
+                    <MenuItem 
+                     disabled={login ? true : false} 
+                     onClick={() => {menuHandleClose(); setEditMode(true)}}>Edit</MenuItem>
+                    <MenuItem 
+                     disabled={login ? true : false} 
+                     onClick={() => {menuHandleClose(); setShowMode(true)}}>Show</MenuItem>
+                    <MenuItem 
+                     disabled={login ? true : false} 
+                     onClick={() => {menuHandleClose(); deletePassword(currentPassword)}}>Delete</MenuItem>
                   </Menu>
-              ) : (
-                  <Menu
-                      id="basic-menu"
-                      anchorEl={anchorEl}
-                      open={openMenu}
-                      sx={{ margin: 'auto' }}
-                      onClose={menuHandleClose}
-                      MenuListProps={{
-                          'aria-labelledby': 'basic-button',
-                        }}
-                  >
-                    <MenuItem onClick={() => {menuHandleClose(); setEditMode(true)}}>Edit</MenuItem>
-                    <MenuItem onClick={() => {menuHandleClose(); setShowMode(true)}}>Show</MenuItem>
-                    <MenuItem onClick={() => {menuHandleClose(); deletePassword(currentPassword)}}>Delete</MenuItem>
-                  </Menu>
-              )}
-              {!login ? (
-                <Chip label="Unlocked" sx={{ cursor: 'default' }} icon={<LockOpenIcon />} />
-                ) : (
-                <Chip label="Locked" sx={{ cursor: 'default' }} icon={<LockIcon />} />
-              )}
+                <Chip 
+                 label={!login ? "Unlocked" : "Locked"} 
+                 sx={{ cursor: 'default' }} 
+                 icon={!login ? <LockOpenIcon /> : <LockIcon />} />
             </Box>
         </Card>
         ): (
             <Card sx={{ padding: '0 1rem' }}>
-                <PasswordForm 
+                <EditPasswordForm 
                  currentPassword={currentPassword}
-                 passwordHandler={editPasswordHandler}
-                 buttonTitle="EDIT PASSWORD" /> 
+                 passwordHandler={editPasswordHandler} /> 
             </Card>
         )
         ) : (
           <Card sx={{ padding: '0 1rem' }}>
-            <PasswordForm 
+            <ShowPasswordForm 
               currentPassword={currentPassword}
-              passwordHandler={() => setShowMode(false)}
-              readonlyMode={true}
-              buttonTitle="CLOSE" /> 
+              passwordHandler={setShowMode}/> 
           </Card>
     )
   )

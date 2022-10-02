@@ -3,7 +3,7 @@ import { Card, Typography, Tooltip, Box } from "@mui/material"
 import DeleteIcon from '@mui/icons-material/Delete';
 import KeyboardReturnIcon from '@mui/icons-material/KeyboardReturn';
 import EditIcon from '@mui/icons-material/Edit';
-import AddTodoForm from './AddTodoForm';
+import EditTodoForm from './EditTodoForm';
 type todoStructureProps = { name: string, id: string };
 interface DoneListProps {
     currentTodo: todoStructureProps,
@@ -38,10 +38,9 @@ const DoneListCard = (props: DoneListProps): JSX.Element => {
           </Box>
           </>
         ) : (
-          <AddTodoForm
+          <EditTodoForm
             currentName={currentTodo.name}
-            formSubmit={doneListEditHandler}
-            placeholderName="Edit Todo" />
+            formSubmit={doneListEditHandler} />
         )}
     </Card>
   )
