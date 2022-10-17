@@ -53,6 +53,7 @@ const setPasswordAuthHandler = () => {
   }
 
   localStorage.setItem('dashboard', JSON.stringify(updateStorage)); 
+  handleClose()
 }
 
   useEffect(() => {

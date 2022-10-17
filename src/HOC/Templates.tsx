@@ -32,6 +32,10 @@ const dashboardDefault: {
   }
   urls: any[]
   passwords: any[]
+  wallet: {
+    income: any[]
+    spend: any[]
+  }
 } = {
   passwordAuth: {},
   todos: {
@@ -39,7 +43,11 @@ const dashboardDefault: {
     doneList: []
   },
   urls: [],
-  passwords: []
+  passwords: [],
+  wallet: {
+    income: [],
+    spend: []
+  }
 }
 
 const drawerWidth = 240;

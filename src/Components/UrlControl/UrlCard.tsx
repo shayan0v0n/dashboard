@@ -37,7 +37,7 @@ const UrlCard = (props: urlCardProps) => {
     {!editMode ? (
         <Card sx={{ padding: '1rem', margin: '1rem', display: 'flex' }}>
           <Tooltip title={currentAddress} followCursor>
-              <Typography sx={{fontWeight: 'bold', flexGrow: 1}}>{currentName}</Typography>
+              <Typography sx={{fontWeight: 'bold', flexGrow: 1, display: 'flex', alignItems: 'center'}}>{currentName}</Typography>
           </Tooltip>
           <Box sx={{ cursor: 'pointer', display: 'flex' }} alignItems="center">
           <Button id="basic-button"
