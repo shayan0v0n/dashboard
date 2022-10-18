@@ -1,4 +1,4 @@
-import { Grid, TextField, Button, Box } from '@mui/material'
+import { Grid, TextField, Button } from '@mui/material'
 import { useEffect, useState } from 'react'
 interface incomeProps {
     setIncomeList: Function

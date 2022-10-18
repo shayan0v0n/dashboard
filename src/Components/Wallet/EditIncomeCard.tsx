@@ -31,7 +31,7 @@ const EditIncomeCard = (props: editIncomeCardProps) => {
     }, [title, value])
 
     const updateButton = (title: String, value: String) => {
-        const cardStructure = { ...currentIncomeData, title: title, value: value }
+        const cardStructure = { ...currentIncomeData, title: title, value: Number(value) }
         updateButtonHandler(cardStructure)
     }
 

@@ -44,7 +44,7 @@ const UrlControl = () => {
 
   const editUrlHandler = (currentUrl: urlData, currentName: string, currentAddress: string) => {
     let currentStorage: any[] = [...currentUrlStorage];
-    const indexUrl = currentStorage.findIndex((url: urlData) => url.id == currentUrl.id)
+    const indexUrl = currentStorage.findIndex((url: urlData) => url.id === currentUrl.id)
     currentStorage[indexUrl] = { name: currentName, address: currentAddress, id: currentStorage[indexUrl].id }
     const uppdatedStorage: any = {
       ...currentStorageJSON,

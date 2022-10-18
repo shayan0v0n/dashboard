@@ -31,7 +31,7 @@ const EditSpendCard = (props: editSpendCardProps) => {
     }, [title, value])
 
     const updateButton = (title: String, value: String) => {
-        const cardStructure = { ...currentSpendData, title: title, value: value }
+        const cardStructure = { ...currentSpendData, title: title, value: Number(value) }
         updateButtonHandler(cardStructure)
     }
 

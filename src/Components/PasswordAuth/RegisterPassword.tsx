@@ -31,7 +31,6 @@ const RegisterPassword = () => {
   const [passwordStatus, setPasswordStatus] = useState(true)
   const [formValidate, setFormValidate] = useState(false)
 
-  const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const checkFormValidate = () => {
     if (email.trim().length !== 0 && password.trim().length !== 0) {

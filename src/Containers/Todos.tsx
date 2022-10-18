@@ -102,7 +102,7 @@ export const Todos = () => {
 
   const activeListEditHandler = (currentTodo: todoStructureProps, newTodo: string) => {
     let currentStorage: any[] = [...currentActiveList];
-    const indexUrl = currentStorage.findIndex((todo: todoStructureProps) => todo.id == currentTodo.id)
+    const indexUrl = currentStorage.findIndex((todo: todoStructureProps) => todo.id === currentTodo.id)
     currentStorage[indexUrl] = { name: newTodo, id: currentStorage[indexUrl].id }
     const uppdatedStorage: any = {
       ...currentStorageJSON,
@@ -118,7 +118,7 @@ export const Todos = () => {
 
   const doneListEditHandler = (currentTodo: todoStructureProps, newTodo: string) => {
     let currentStorage: any[] = [...currentDoneList];
-    const indexUrl = currentStorage.findIndex((todo: todoStructureProps) => todo.id == currentTodo.id)
+    const indexUrl = currentStorage.findIndex((todo: todoStructureProps) => todo.id === currentTodo.id)
     currentStorage[indexUrl] = { name: newTodo, id: currentStorage[indexUrl].id }
     const uppdatedStorage: any = {
       ...currentStorageJSON,

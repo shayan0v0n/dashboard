@@ -1,6 +1,7 @@
 import { Grid, Typography } from '@mui/material'
 import Button from '@mui/material/Button'
 import { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 import uuid from 'react-uuid'
 import IncomeCard from '../Components/Wallet/IncomeCard'
 import IncomeForm from '../Components/Wallet/IncomeForm'
@@ -9,6 +10,7 @@ import SpendForm from '../Components/Wallet/SpendForm'
 interface incomeAndSpendStructure { title: String, value: Number, id: String, createdData: number}
 
 const Wallet = () => {
+  const navigate = useNavigate()
   const currentStorage: any = localStorage.getItem("dashboard")
   const currentStorageJSON = JSON.parse(currentStorage);
   const [incomeList, setIncomeList]: any[] = useState(currentStorageJSON.wallet.income)
@@ -124,7 +126,7 @@ const Wallet = () => {
 
   return (
     <>
-      <Button fullWidth variant='contained' sx={{ padding: '2rem 1rem', margin: '1rem 0' }} disabled={walletStatusValidate && false ? false : true}>WALLET STATUS</Button>
+     <Button onClick={() => {navigate('/walletControl/walletStatus')}} fullWidth variant='contained' sx={{ padding: '2rem 1rem', margin: '1rem 0' }} disabled={walletStatusValidate ? false : true}>WALLET STATUS</Button>
       <Grid container gap={2} margin="1rem" justifyContent="center">
         <Grid item xs={5} margin="1rem" textAlign='center'>
           <Typography variant='h5' fontWeight="bold">Income Items💵</Typography>
