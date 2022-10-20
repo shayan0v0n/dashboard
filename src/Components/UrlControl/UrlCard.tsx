@@ -12,6 +12,7 @@ const UrlCard = (props: urlCardProps) => {
     const {currentUrl, deleteUrl, editUrl} = props
     const currentName = currentUrl.name
     const currentAddress = currentUrl.address
+    const [toggleMenu, setToggleMenu] = useState(window.innerWidth <= 600 ? false : true);
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
     const [editMode, setEditMode] = useState(false)
     const [open, setOpen] = React.useState(false);
@@ -59,8 +60,9 @@ const UrlCard = (props: urlCardProps) => {
           <MenuItem onClick={() => {menuHandleClose(); setEditMode(true)}}>Edit</MenuItem>
           <MenuItem onClick={() => {menuHandleClose(); deleteUrl(currentUrl)}}>Delete</MenuItem>
         </Menu>
-          <Chip label="Copy" sx={{ cursor: 'pointer' }} icon={<CopyAllIcon />} 
-              onClick={() => copyToClipboardHandler()}/>
+        { toggleMenu ? (
+            <Chip label="Copy" sx={{ cursor: 'pointer' }} icon={<CopyAllIcon />} onClick={() => copyToClipboardHandler()}/>
+        ) : null }
           </Box>
   
           <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>

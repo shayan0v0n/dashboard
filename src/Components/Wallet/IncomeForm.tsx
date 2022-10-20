@@ -25,12 +25,12 @@ const IncomeForm = (props: incomeProps) => {
 
 
   return (
-    <Grid container gap={1} margin="1rem">
-        <Grid item xs={9}>
+    <Grid container gap={1} sx={{ display:"flex", justifyContent: 'center' }}>
+        <Grid item md={9} xs={10}>
             <TextField sx={{ margin: '.5rem 0' }} fullWidth placeholder='Income Title...' value={title} onChange={e => {setTitle(e.target.value)}} />
             <TextField sx={{ margin: '.5rem 0' }} fullWidth placeholder='Income Value...' value={value} onChange={e => {setValue(e.target.value)}} />
         </Grid>
-        <Grid item xs={2}>
+        <Grid item md={2} xs={10}>
             <Button disabled={formValidate ? false : true} onClick={() => setIncome()} variant="contained" color='success' sx={{ margin: '.5rem 0', height: '90%' }} fullWidth >Save</Button>
         </Grid>
     </Grid>

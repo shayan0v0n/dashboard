@@ -33,7 +33,7 @@ const AddPasswordForm = (props: AddPasswordFormProps) => {
     }
 
   return (
-    <Grid container gap={1} justifyContent="space-around" sx={{ margin: '1rem' }}>
+    <Grid container gap={1} justifyContent="space-around" sx={{ marginTop: '1rem' }}>
     <Grid item xs={12} md={9}>
       <Box>
         <TextField 

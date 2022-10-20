@@ -20,6 +20,7 @@ interface passwordCardProps {
 
 const PasswordCard = (props: passwordCardProps) => {
     const {currentPassword, deletePassword, editPassword, login} = props
+    const [toggleMenu, setToggleMenu] = useState(window.innerWidth <= 600 ? false : true);
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
     const openMenu = Boolean(anchorEl);
     const [editMode, setEditMode] = useState(false)
@@ -36,7 +37,7 @@ const PasswordCard = (props: passwordCardProps) => {
   return (
     !showMode ? (
       !editMode ? (
-        <Card sx={{ padding: '1rem', margin: '1rem', display: 'flex' }}>
+        <Card sx={{ padding: '1rem', display: 'flex' }}>
             <Typography sx={{fontWeight: 'bold', flexGrow: 1, margin: 'auto'}} >{currentPassword.title}</Typography>
             
             <Box sx={{ cursor: 'pointer', display: 'flex' }} alignItems="center">
@@ -64,10 +65,12 @@ const PasswordCard = (props: passwordCardProps) => {
                      disabled={login ? true : false} 
                      onClick={() => {menuHandleClose(); deletePassword(currentPassword)}}>Delete</MenuItem>
                   </Menu>
-                <Chip 
-                 label={!login ? "Unlocked" : "Locked"} 
-                 sx={{ cursor: 'default' }} 
-                 icon={!login ? <LockOpenIcon /> : <LockIcon />} />
+                    {toggleMenu ? (
+                      <Chip
+                      label={!login ? "Unlocked" : "Locked"} 
+                      sx={{ cursor: 'default' }} 
+                      icon={!login ? <LockOpenIcon /> : <LockIcon />} />
+                    ) : null}
             </Box>
         </Card>
         ): (

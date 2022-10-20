@@ -25,12 +25,12 @@ const SpendForm = (props: incomeProps) => {
 
 
   return (
-    <Grid container margin="1rem" gap={1}>
-        <Grid item xs={9}>
+    <Grid container sx={{ display:"flex", justifyContent: 'center' }} gap={1}>
+        <Grid item md={9} xs={10}>
             <TextField sx={{ margin: '.5rem 0' }} fullWidth placeholder='Spend Title...' value={title} onChange={e => {setTitle(e.target.value)}} />
             <TextField sx={{ margin: '.5rem 0' }} fullWidth placeholder='Spend Value...' value={value} onChange={e => {setValue(e.target.value)}} />
         </Grid>
-        <Grid item xs={2}>
+        <Grid item md={2} xs={10}>
             <Button disabled={formValidate ? false : true} onClick={() => setSpend()} variant="contained" color='error' sx={{ margin: '.5rem 0', height: '90%' }} fullWidth >Save</Button>
         </Grid>
     </Grid>

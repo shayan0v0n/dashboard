@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { Button, Grid, TextField } from '@mui/material'
 interface EditTodoFormProps {
     formSubmit: Function
+    menuHandle: Function
     currentName?: string
 }
 
@@ -14,6 +15,7 @@ const EditTodoForm = (props: EditTodoFormProps) => {
   }, [addTodo])
   const formSubmitHandler = () => {
     props.formSubmit(addTodo);
+    props.menuHandle()
     setAddTodo('')
   }
 
@@ -34,7 +36,7 @@ const EditTodoForm = (props: EditTodoFormProps) => {
                 fullWidth 
                 sx={{ height: '100%' }} 
                 disabled={formValidate ? true : false}
-                onClick={formSubmitHandler}>EDIT</Button>
+                onClick={() => formSubmitHandler()}>EDIT</Button>
         </Grid>
     </Grid>
   )

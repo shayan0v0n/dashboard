@@ -128,7 +128,7 @@ const Wallet = () => {
     <>
      <Button onClick={() => {navigate('/walletControl/walletStatus')}} fullWidth variant='contained' sx={{ padding: '2rem 1rem', margin: '1rem 0' }} disabled={walletStatusValidate ? false : true}>WALLET STATUS</Button>
       <Grid container gap={2} margin="1rem" justifyContent="center">
-        <Grid item xs={5} margin="1rem" textAlign='center'>
+        <Grid item xs={12} md={5} margin="1rem" textAlign='center'>
           <Typography variant='h5' fontWeight="bold">Income Items💵</Typography>
             { incomeList.map((income: incomeAndSpendStructure, index: number) => (
               <IncomeCard key={index}
@@ -138,7 +138,7 @@ const Wallet = () => {
             )) }
             <IncomeForm setIncomeList={setIncomeListHandler} />
         </Grid>
-        <Grid item xs={5} margin="1rem" textAlign='center'>
+        <Grid item xs={12} md={5} margin="1rem" textAlign='center'>
           <Typography variant='h5' fontWeight="bold">Spend Items💰</Typography>
           { spendList.map((spend: incomeAndSpendStructure, index: number) => (
               <SpendCard
