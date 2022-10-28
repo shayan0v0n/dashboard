@@ -3,9 +3,18 @@ import { Alert, Box, Button, Card, Chip, Menu, MenuItem, Snackbar, Tooltip, Typo
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import CopyAllIcon from '@mui/icons-material/CopyAll';
 import EditUrlForm from './EditUrlForm';
+import { styled, CardProps } from "@mui/material";
 
 interface urlCardProps { currentUrl: urlData, deleteUrl: Function, editUrl: Function}
 interface urlData { name: string, address: string,id: string }
+
+const CardUrlList = styled(Card)<CardProps>({
+    margin: '1rem',
+    padding: '.8rem',
+    display: "flex",
+    justifyContent: 'space-between',
+    border: '0.2px solid #1565c0'
+})
 
 
 const UrlCard = (props: urlCardProps) => {
@@ -36,7 +45,7 @@ const UrlCard = (props: urlCardProps) => {
   return (
     <>
     {!editMode ? (
-        <Card sx={{ padding: '1rem', margin: '1rem', display: 'flex' }}>
+        <CardUrlList>
           <Tooltip title={currentAddress} followCursor>
               <Typography sx={{fontWeight: 'bold', flexGrow: 1, display: 'flex', alignItems: 'center'}}>{currentName}</Typography>
           </Tooltip>
@@ -70,7 +79,7 @@ const UrlCard = (props: urlCardProps) => {
                   {currentName} URL Copied In Clipboard!
               </Alert>
           </Snackbar>
-        </Card>
+        </CardUrlList>
     ) : (
         <Card sx={{ padding: '1rem', margin: '1rem', display: 'flex' }}>
             <EditUrlForm 

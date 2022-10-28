@@ -5,9 +5,29 @@ import { Todos } from "./Containers/Todos"
 import UrlControl from "./Containers/UrlControl"
 import Wallet from "./Containers/Wallet"
 import WalletStatus from "./Containers/WalletStatus"
+import useDarkMode from './store/useDarkMode';
+import { createTheme, PaletteMode, ThemeProvider } from "@mui/material"
+import { amber, deepOrange, grey } from "@mui/material/colors"
+
 
 const App = () => {
+  const darkMode = useDarkMode()
+  const getPaletteMode = (mode: PaletteMode) => ({
+    palette: {
+      mode,
+      ...(mode === 'dark' && {
+        background: {
+          default: "#121212",
+          paper: "rgba(255, 255, 255, 0.16)",
+        }
+      })
+    }
+  })
+
+  const darkModeTheme = createTheme(getPaletteMode(darkMode.darkModeStatus ? 'dark' : 'light'));
+
   return (
+    <ThemeProvider theme={darkModeTheme}>
     <Templates>
       <Routes>
         <Route path="/" element={<Todos />} />
@@ -17,6 +37,7 @@ const App = () => {
         <Route path="/passwordSaver" element={<PasswordSaver />} />
       </Routes>
     </Templates>
+    </ThemeProvider>
   )
 }
 

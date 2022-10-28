@@ -5,6 +5,7 @@ import KeyboardReturnIcon from '@mui/icons-material/KeyboardReturn';
 import EditIcon from '@mui/icons-material/Edit';
 import EditTodoForm from './EditTodoForm';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
+import { styled, CardProps } from "@mui/material";
 
 type todoStructureProps = { name: string, id: string };
 interface DoneListProps {
@@ -13,6 +14,14 @@ interface DoneListProps {
     deleteDoneList: Function
     doneListEdit: Function
 }
+
+const CardDoneList = styled(Card)<CardProps>({
+  margin: '1rem',
+  padding: '.8rem',
+  display: "flex",
+  justifyContent: 'space-between',
+  border: '0.2px solid #1565c0'
+})
 
 const DoneListCard = (props: DoneListProps): JSX.Element => {
     const {returnDoneList, currentTodo, deleteDoneList, doneListEdit} = props
@@ -26,7 +35,7 @@ const DoneListCard = (props: DoneListProps): JSX.Element => {
     const menuHandleClose = () => {setAnchorEl(null)}
 
   return (
-    <Card sx={{ margin: '1rem', padding: '.8rem', display: "flex", justifyContent: 'space-between' }}>
+    <CardDoneList>
         {!doneListEditMode ? (
           <>
           <Typography fontWeight="bold" sx={{ flexFlow: 1}}>{currentTodo.name}</Typography>
@@ -73,7 +82,7 @@ const DoneListCard = (props: DoneListProps): JSX.Element => {
             currentName={currentTodo.name}
             formSubmit={doneListEditHandler} />
         )}
-    </Card>
+    </CardDoneList>
   )
 }
 

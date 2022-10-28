@@ -5,6 +5,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import React, { useState } from "react";
 import EditTodoForm from "./EditTodoForm";
 import MoreVertIcon from '@mui/icons-material/MoreVert';
+import { styled, CardProps } from "@mui/material";
 
 type todoStructureProps = { name: string, id: string };
 interface activeListProps {
@@ -13,6 +14,14 @@ interface activeListProps {
   AddActiveListTodo: Function,
   activeListEdit: Function
 }
+
+const CardActiveList = styled(Card)<CardProps>({
+  margin: '1rem',
+  padding: '.8rem',
+  display: "flex",
+  justifyContent: 'space-between',
+  border: '0.2px solid #1565c0'
+})
 
 const ActiveListCard = (props: activeListProps): JSX.Element => {
   const {deleteActiveListTodo, currentTodo, AddActiveListTodo, activeListEdit} = props
@@ -26,7 +35,7 @@ const ActiveListCard = (props: activeListProps): JSX.Element => {
   const menuHandleClose = () => {setAnchorEl(null)}
 
   return (
-    <Card sx={{ margin: '1rem', padding: '.8rem', display: "flex", justifyContent: 'space-between' }}>
+    <CardActiveList>
       {!activeListEditMode ? (
         <>
         <Typography fontWeight="bold" sx={{ flexFlow: 1}}>{currentTodo.name}</Typography>
@@ -73,7 +82,7 @@ const ActiveListCard = (props: activeListProps): JSX.Element => {
          currentName={currentTodo.name}
          formSubmit={activeListEditHandler} />
       )}
-    </Card>
+    </CardActiveList>
   )
 }
 

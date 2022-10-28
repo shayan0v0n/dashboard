@@ -7,6 +7,7 @@ import MenuItem from "@mui/material/MenuItem";
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import React, { useState } from "react";
 import LockOpenIcon from '@mui/icons-material/LockOpen';
+import { styled, CardProps } from "@mui/material";
 import EditPasswordForm from "./EditPasswordForm";
 import ShowPasswordForm from "./ShowPasswordForm";
 
@@ -17,6 +18,14 @@ interface passwordCardProps {
     editPassword: Function
     login: boolean
 }
+
+const CardPasswordSaver = styled(Card)<CardProps>({
+  margin: '1rem',
+  padding: '.8rem',
+  display: "flex",
+  justifyContent: 'space-between',
+  border: '0.2px solid #1565c0'
+})
 
 const PasswordCard = (props: passwordCardProps) => {
     const {currentPassword, deletePassword, editPassword, login} = props
@@ -37,7 +46,7 @@ const PasswordCard = (props: passwordCardProps) => {
   return (
     !showMode ? (
       !editMode ? (
-        <Card sx={{ padding: '1rem', display: 'flex' }}>
+        <CardPasswordSaver>
             <Typography sx={{fontWeight: 'bold', flexGrow: 1, margin: 'auto'}} >{currentPassword.title}</Typography>
             
             <Box sx={{ cursor: 'pointer', display: 'flex' }} alignItems="center">
@@ -72,7 +81,7 @@ const PasswordCard = (props: passwordCardProps) => {
                       icon={!login ? <LockOpenIcon /> : <LockIcon />} />
                     ) : null}
             </Box>
-        </Card>
+        </CardPasswordSaver>
         ): (
             <Card sx={{ padding: '0 1rem' }}>
                 <EditPasswordForm 
