@@ -8,6 +8,7 @@ import WalletStatus from "./Containers/WalletStatus"
 import useDarkMode from './store/useDarkMode';
 import { createTheme, PaletteMode, ThemeProvider } from "@mui/material"
 import { amber, deepOrange, grey } from "@mui/material/colors"
+import Notes from "./Containers/Notes"
 
 
 const App = () => {
@@ -35,6 +36,7 @@ const App = () => {
         <Route path="/walletControl/walletStatus" element={<WalletStatus />} />
         <Route path="/urlSaver" element={<UrlControl />} />
         <Route path="/passwordSaver" element={<PasswordSaver />} />
+        <Route path="/notes" element={<Notes />} />
       </Routes>
     </Templates>
     </ThemeProvider>

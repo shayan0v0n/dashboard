@@ -24,6 +24,7 @@ import { format } from 'date-fns';
 import { Link } from 'react-router-dom';
 import RegisterPassword from '../Components/PasswordAuth/RegisterPassword';
 import { FormControlLabel, Switch } from '@mui/material';
+import DescriptionIcon from '@mui/icons-material/Description';
 import useDarkMode from '../store/useDarkMode';
 
 const dashboardDefault: {
@@ -37,7 +38,8 @@ const dashboardDefault: {
   wallet: {
     income: any[]
     spend: any[]
-  }
+  },
+  notes: any[]
 } = {
   passwordAuth: {},
   todos: {
@@ -49,7 +51,8 @@ const dashboardDefault: {
   wallet: {
     income: [],
     spend: []
-  }
+  },
+  notes: []
 }
 
 const MaterialUISwitch = styled(Switch)(({ theme }) => ({
@@ -114,6 +117,9 @@ const appBarNavigate = [{
   }, {
     title: 'Wallet Control',
     path: '/walletControl'
+}, {
+    title: 'Notes',
+    path: '/notes'
 }]
 
 
@@ -268,6 +274,7 @@ const Templates = (props: TemplateProps): JSX.Element => {
                   {item.title === 'Wallet Control' ? <AccountBalanceWalletIcon /> : null}
                   {item.title === 'Url Saver' ? <LinkIcon /> : null}
                   {item.title === 'Password Saver' ? <LockIcon /> : null}
+                  {item.title === 'Notes' ? <DescriptionIcon /> : null}
                 </ListItemIcon>
                     <ListItemText primary={item.title} sx={{ opacity: open ? 1 : 0 }} />
                 </ListItemButton>
