@@ -136,7 +136,7 @@ export const Todos = () => {
       <Container>
         <Grid container gap={2} justifyContent="center">
           <Grid item xs={12} md={5} margin="1rem" textAlign="center">
-            <h2>َActive List🐷🍫</h2>
+            <h2>Active List🐷🍫</h2>
             { currentActiveList.map((todo: todoStructureProps) => (
               <ActiveListCard 
               key={todo.id} 
